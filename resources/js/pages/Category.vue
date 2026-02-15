@@ -55,11 +55,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div v-for="product in products" :key="product.id" 
-                                 class="col-xl-4 col-sm-6">
+                                <div v-for="product in products" :key="product.id" class="col-xl-4 col-sm-6">
                                     <div class="new-arrival-item text-center mb-50">
                                         <div class="thumb mb-25">
-                                            <a href="shop-details.html"><img  :src="product.image ? `/${product.image}` : '/front_end/img/no_image.jpg'" alt=""></a>
+                                            <a href="shop-details.html"><img :src="product.image ? `/${product.image}` : '/front_end/img/no_image.jpg'" alt=""></a>
                                             <div class="product-overlay-action">
                                                 <ul>
                                                     <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
@@ -73,200 +72,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag">- 20%</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product02.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Travelling Bags</a></h5>
-                                            <span class="price">$25.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product03.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Exclusive Handbags</a></h5>
-                                            <span class="price">$19.50</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag new">New</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product04.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Women Shoes</a></h5>
-                                            <span class="price">$12.90</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag">- 20%</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product05.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Winter Jackets</a></h5>
-                                            <span class="price">$49.90</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag new">New</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product06.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Fashion Shoes</a></h5>
-                                            <span class="price">$31.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product07.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Winter Jackets</a></h5>
-                                            <span class="price">$19.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag">- 45%</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product08.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Travelling Bags</a></h5>
-                                            <span class="price">$9.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag new">New</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product09.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Travelling Bags</a></h5>
-                                            <span class="price">$31.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product10.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Winter Jackets</a></h5>
-                                            <span class="price">$19.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product11.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Leather Sandal</a></h5>
-                                            <span class="price">$9.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="new-arrival-item text-center mb-50">
-                                        <div class="thumb mb-25">
-                                            <div class="discount-tag">- 45%</div>
-                                            <a href="shop-details.html"><img src="/front_end/img/product/n_arrival_product12.jpg" alt=""></a>
-                                            <div class="product-overlay-action">
-                                                <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <h5><a href="shop-details.html">Double Relaxed Shirt</a></h5>
-                                            <span class="price">$9.99</span>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="pagination-wrap">
                                 <ul>
@@ -293,13 +99,10 @@
                                     <h4 class="widget-title">Product Categories</h4>
                                     <div class="shop-cat-list">
                                         <ul>
-                                            <li><a href="#">Accessories</a><span>(6)</span></li>
-                                            <li><a href="#">Computer</a><span>(4)</span></li>
-                                            <li><a href="#">Covid-19</a><span>(2)</span></li>
-                                            <li><a href="#">Electronics</a><span>(6)</span></li>
-                                            <li><a href="#">Frame Sunglasses</a><span>(12)</span></li>
-                                            <li><a href="#">Furniture</a><span>(7)</span></li>
-                                            <li><a href="#">Genuine Leather</a><span>(9)</span></li>
+                                            <li v-for="item in categories" :key="item.id">
+                                                <router-link :to="'/category/' + item.slug">{{ item.name}}</router-link>
+                                                <span>(6)</span>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -309,7 +112,7 @@
                                         <div id="slider-range"></div>
                                         <div class="price_slider_amount">
                                             <span>Price :</span>
-                                            <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                                            <input type="text" id="amount" name="price" v-model="priceRange" placeholder="Add Your Price" />
                                         </div>
                                     </div>
                                 </div>
@@ -317,10 +120,9 @@
                                     <h4 class="widget-title">Product Brand</h4>
                                     <div class="sidebar-brand-list">
                                         <ul>
-                                            <li><a href="#">New Arrivals <i class="fas fa-angle-double-right"></i></a></li>
-                                            <li><a href="#">Clothing & Accessories <i class="fas fa-angle-double-right"></i></a></li>
-                                            <li><a href="#">Winter Jacket <i class="fas fa-angle-double-right"></i></a></li>
-                                            <li><a href="#">Baby Clothing <i class="fas fa-angle-double-right"></i></a></li>
+                                            <li v-for="item in brands" :key="item.id" v-on:click="addDataAttr('brand',item.id)">
+                                                <a :class="this.brand.includes(item.id) ? brandColor : '' " href="javascript:void(0)">{{ item.text }} <i class="fas fa-angle-double-right">
+                                                    </i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -329,11 +131,9 @@
                                         <h4 class="widget-title">Product Size</h4>
                                         <div class="shop-size-list">
                                             <ul>
-                                                <li><a href="#">S</a></li>
-                                                <li><a href="#">M</a></li>
-                                                <li><a href="#">L</a></li>
-                                                <li><a href="#">XL</a></li>
-                                                <li><a href="#">XXL</a></li>
+                                                <li v-for="item in sizes" :key="item.id" 
+                                                v-on:click="addDataAttr('size',item.id)">
+                                                    <a :class="this.size.includes(item.id) ? sizeColor : '' " href="javascript:void(0)">{{ item.text }}</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -341,12 +141,18 @@
                                         <h4 class="widget-title">Color</h4>
                                         <div class="shop-color-list">
                                             <ul>
-                                                <li></li>
-                                                <li></li>
-                                                <li></li>
-                                                <li></li>
+                                                <li v-for="item in colors" :key="item.id" 
+                                                v-on:click="addDataAttr('color',item.id)" 
+                                                :class="this.color.includes(item.id) ? colorColor : '' " 
+                                                :style="{backgroundColor: item.value}">
+                                                </li>
                                             </ul>
                                         </div>
+                                    </div>
+                                    <div class="cart-coupon">
+                                        <form action="#">
+                                            <button class="btn">Filter</button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="widget">
@@ -408,6 +214,8 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="highPrice" v-model="highPrice">
+                <input type="hidden" id="lowPrice" v-model="lowPrice">
             </section>
             <!-- shop-area-end -->
 
@@ -438,7 +246,19 @@ export default {
             category: '',
             highPrice: '',
             lowPrice: '',
-            slug: ''
+            slug: '',
+            priceRange: '',
+            brand: [],
+            size: [],
+            color: [],
+            brandColor: 'brandColor',
+            sizeColor: 'sizeColor',
+            colorColor: 'colorColor',
+        }
+    },
+    watch: {
+        '$route'() {
+            this.getProducts();
         }
     },
     mounted() {
@@ -446,6 +266,46 @@ export default {
     },
     methods: {
 
+        addDataAttr(type, value) {
+            if (type == 'brand') {
+                console.log(this.brand);
+                if (this.checkArray(type, value)) {
+                    // true value exist in array
+                    this.brand.splice(this.brand.indexOf(value), 1);
+                } else {
+                    // false value not exist in array
+                    this.brand.push(value);
+                }
+            } else if (type == 'size') {
+                if (this.checkArray(type, value)) {
+                    // true value exist in array
+                    this.size.splice(this.size.indexOf(value), 1);
+                } else {
+                    // false value not exist in array
+                    this.size.push(value);
+                }
+            } else if (type == 'color') {
+                if (this.checkArray(type, value)) {
+                    // true value exist in array
+                    this.color.splice(this.color.indexOf(value), 1);
+                } else {
+                    // false value not exist in array
+                    this.color.push(value);
+                }
+            }
+        },
+
+        checkArray(type, value) {
+            if (type == 'brand') {
+                return this.brand.includes(value);
+            } else if (type == 'size') {
+
+                return this.size.includes(value);
+            } else if (type == 'color') {
+
+                return this.color.includes(value);
+            }
+        },
         async getProducts() {
             try {
                 this.slug = this.$route.params.slug;
@@ -460,14 +320,16 @@ export default {
 
                     if (response.data.data.products) {
                         console.log(response.data.data.products);
-
-                    this.category = response.data.data.category ; 
-                    this.categories = response.data.data.categories ; 
-                    this.products = response.data.data.products.data ; 
-                    this.brands = response.data.data.brands ; 
-                    this.sizes = response.data.data.sizes ; 
-                    this.colors = response.data.data.colors ; 
-                    // this.cat_attributes = response.data.data.cat_attributes ; 
+                        console.log(response.data.data.lowPrice)
+                        this.category = response.data.data.category;
+                        this.categories = response.data.data.categories;
+                        this.products = response.data.data.products.data;
+                        this.brands = response.data.data.brands;
+                        this.sizes = response.data.data.sizes;
+                        this.colors = response.data.data.colors;
+                        this.highPrice = response.data.data.highPrice;
+                        this.lowPrice = response.data.data.lowPrice;
+                        // this.cat_attributes = response.data.data.cat_attributes ; 
                     }
                 }
 
@@ -478,3 +340,20 @@ export default {
     }
 }
 </script>
+
+<style>
+.brandColor::before {
+    background-color: #ff5400
+}
+
+.sizeColor {
+    background-color: #ff5400 ;
+    color: #ffff ;
+}
+.colorColor::before {
+    content: '\2713' ;
+    display: inline-block;
+    color: #f00 ;
+    padding: 0 6px 0 0 ;
+}
+</style>
