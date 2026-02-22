@@ -1,5 +1,9 @@
 <?php
 
+use Carbon\Carbon;
+
+use function PHPUnit\Framework\returnSelf;
+
 function prx($arr)
 {
     echo "" ;
@@ -11,8 +15,37 @@ if (!function_exists('replaceStr')) {
     function replaceStr($str)
     {
         
-        return preg_replace('/\s+/', '_', $str);
-     
+        return preg_replace('/\s+/', '_', $str); 
         // return preg_replace('/[\s-]+/', '_', $str);
+    }
+
+    function checkTokenExpiryInMinutes($time , $timeDiff = 60) 
+    {
+        // prx($time) ;
+        $data = Carbon::parse($time->format('Y-m-d h:i:s a')) ;
+        $now = Carbon::now() ;
+        
+        $diff = $data->diffInMinutes($now) ;
+
+        if($diff > $timeDiff){
+            return true ; 
+        } else {
+            return false ;
+        }
+
+
+    }
+
+    function generateRandomString($length = 20)
+    {
+        $ch = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' ;
+        $len = strlen($ch) ;
+        $str = '' ;
+        for($i = 0; $i < $length; $i++) 
+        {
+            $str .= $ch[random_int(0, $len-1)] ;
+        }
+
+        return $str ;
     }
 }

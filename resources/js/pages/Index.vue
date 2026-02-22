@@ -1,6 +1,6 @@
 <template>
 <Layout>
-    <template v-slot:content>
+    <template v-slot:content="slotProps">
 
         <!-- slider-area -->
         <section class="slider-area position-relative">
@@ -75,7 +75,7 @@
         <!-- shoes-category-area-end -->
 
         <!-- trending-product-area -->
-        <section class="trending-product-area trending-product-two gray-bg pt-95 pb-100">
+        <section class="trending-product-area trending-product-two gray-bg pt-95 pb-100" :addToCart="slotProps.addToCart">
             <div class="container custom-container">
                 <div class="row justify-content-center">
                     <div class="col-xl-4 col-lg-6">
@@ -145,7 +145,8 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="features-product-cart"><a href="cart.html">add to cart</a></div>
+                                            <div class="features-product-cart"><a href="javascript:void(0)" 
+                                             @click="slotProps.addToCart(trendProduct.id,trendProduct.product_attr[0].id,1)">add to cart</a></div>
                                         </div>
                                     </div>
 
@@ -160,7 +161,7 @@
         <!-- trending-product-area-end -->
 
         <!-- new-arrival-area -->
-        <section class="new-arrival-area pt-95 pb-45">
+        <section class="new-arrival-area pt-95 pb-45" :addToCart="slotProps.addToCart">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-4 col-lg-6">
@@ -200,6 +201,12 @@
                                         <li>
                                             <a :href="`/product/${product.slug}`">
                                                 <i class="far fa-eye"></i>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-shopping-cart" @click="slotProps.addToCart(product.id,product.product_attr[0].id,1)"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -351,6 +358,7 @@ export default {
             activeCategoryId: null,
             productWithAttr: [],
             brands: [], 
+            addToCart : Function
             
         }
     },

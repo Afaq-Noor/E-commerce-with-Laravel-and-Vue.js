@@ -112,10 +112,24 @@
                                         <div id="slider-range"></div>
                                         <div class="price_slider_amount">
                                             <span>Price :</span>
-                                            <input type="text" id="amount" name="price" v-model="priceRange" placeholder="Add Your Price" />
+                                            <input type="text" @keypress="isNumber($event)" ref="lowPrice" id="lowPrice"  
+                                             placeholder="Add Your Price" />
+                                            <input type="text" @keypress="isNumber($event)"  ref="highPrice" id="highPrice" 
+                                            placeholder="Add Your Price" />
                                         </div>
                                     </div>
                                 </div>
+                                <div v-for="item in attributes" :key="item.id"  class="widget">
+                                    <h4 class="widget-title">{{ item.attribute.name }}</h4>
+                                    <div class="sidebar-brand-list">
+                                        <ul>
+                                            <li v-for="attrItem in item.attribute.values" :key="attrItem.id" v-on:click="addDataAttr('attribute',attrItem.id)">
+                                                <a :class="this.attribute.includes(attrItem.id) ? brandColor : '' " href="javascript:void(0)">{{ attrItem.value }} <i class="fas fa-angle-double-right">
+                                                    </i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
                                 <div class="widget">
                                     <h4 class="widget-title">Product Brand</h4>
                                     <div class="sidebar-brand-list">
@@ -151,7 +165,8 @@
                                     </div>
                                     <div class="cart-coupon">
                                         <form action="#">
-                                            <button class="btn">Filter</button>
+                                            <button type="button" v-on:click="getProducts" 
+                                            class="btn">Filter</button>
                                         </form>
                                     </div>
                                 </div>
@@ -214,8 +229,6 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" id="highPrice" v-model="highPrice">
-                <input type="hidden" id="lowPrice" v-model="lowPrice">
             </section>
             <!-- shop-area-end -->
 
@@ -243,6 +256,7 @@ export default {
             brands: [],
             sizes: [],
             colors: [],
+            attributes: [],
             category: '',
             highPrice: '',
             lowPrice: '',
@@ -251,6 +265,7 @@ export default {
             brand: [],
             size: [],
             color: [],
+            attribute: [],
             brandColor: 'brandColor',
             sizeColor: 'sizeColor',
             colorColor: 'colorColor',
@@ -265,10 +280,22 @@ export default {
         this.getProducts();
     },
     methods: {
-
+         
+        showDataAttribute() {
+            console.log(this.$refs.lowPrice.value) ;
+            console.log(this.$refs.highPrice.value) ;
+        }
+        ,
+        isNumber(evt) {
+            const charcode = evt.which ? evt.which : evt.keyCode ;
+            if(charcode > 31 && (charcode < 48 || charcode > 57 ) && charcode !== 46)
+            {
+                evt.preventDefault() ;
+            }
+        } ,
         addDataAttr(type, value) {
             if (type == 'brand') {
-                console.log(this.brand);
+                console.log(value);
                 if (this.checkArray(type, value)) {
                     // true value exist in array
                     this.brand.splice(this.brand.indexOf(value), 1);
@@ -291,6 +318,15 @@ export default {
                 } else {
                     // false value not exist in array
                     this.color.push(value);
+                } 
+                }
+                else if (type == 'attribute') {
+                if (this.checkArray(type, value)) {
+                    // true value exist in array
+                    this.attribute.splice(this.attribute.indexOf(value), 1);
+                } else {
+                    // false value not exist in array
+                    this.attribute.push(value);
                 }
             }
         },
@@ -304,6 +340,9 @@ export default {
             } else if (type == 'color') {
 
                 return this.color.includes(value);
+            } else if (type == 'attribute') {
+
+                return this.attribute.includes(value);
             }
         },
         async getProducts() {
@@ -316,19 +355,29 @@ export default {
                         name: 'Index'
                     });
                 } else {
-                    const response = await axios.get('/api/category/' + this.slug);
+                    const response = await axios.post('/api/category/', {
+                          "slug" : this.slug ,
+                          "attribute" : this.attribute ,
+                          "lowPrice" : this.$refs.lowPrice.value ,
+                          "highPrice" : this.$refs.highPrice.value ,
+                          "brand" : this.brand ,
+                          "size" : this.size ,
+                          "color" : this.color ,
+                    });
 
                     if (response.data.data.products) {
-                        console.log(response.data.data.products);
-                        console.log(response.data.data.lowPrice)
+                        console.log(response.data.data.cat_attributes) ;
                         this.category = response.data.data.category;
                         this.categories = response.data.data.categories;
                         this.products = response.data.data.products.data;
                         this.brands = response.data.data.brands;
                         this.sizes = response.data.data.sizes;
                         this.colors = response.data.data.colors;
-                        this.highPrice = response.data.data.highPrice;
-                        this.lowPrice = response.data.data.lowPrice;
+                        this.attributes = response.data.data.cat_attributes;
+                        // this.highPrice = response.data.data.highPrice;
+                        // this.lowPrice = response.data.data.lowPrice;
+                        this.$refs.lowPrice.value = response.data.data.lowPrice;
+                        this.$refs.highPrice.value = response.data.data.highPrice;
                         // this.cat_attributes = response.data.data.cat_attributes ; 
                     }
                 }

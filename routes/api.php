@@ -31,6 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/front-home-data' , [HomeController::class , 'index']) ;
 // Main Categories Data for home navbar
 Route::get('/categories', [HomeController::class , 'navBarCategory']) ;
+Route::post('/getUserData', [HomeController::class , 'getUserData']) ;
+Route::post('/getCartData', [HomeController::class , 'getCartData']) ;
+Route::post('/addToCart', [HomeController::class , 'addToCart']) ;
+Route::post('/removeCartData', [HomeController::class , 'removeCartData']) ;
 
 // After clicking main category in navbar then categories data
-Route::get('/category/{slug?}' , [CategoryPageController::class , 'getCategoryData']) ;
+Route::post('/category' , [CategoryPageController::class , 'getCategoryData']) ;
