@@ -98,7 +98,6 @@ function deleteData(id, table) {
         data: { _token: '{{ csrf_token() }}' },
         cache: false,
         success: function(result) {
-            alert('succccc')
             if (result.status === 'success') {
                 showAlert(result.status, result.message);
                 if (result.data.reload === true) location.reload();

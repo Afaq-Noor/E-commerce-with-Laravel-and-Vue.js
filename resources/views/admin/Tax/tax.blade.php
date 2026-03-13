@@ -62,7 +62,7 @@
                                                 class="btn btn-outline-info px-5 radius-30" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">Update</button>
                                             <button
-                                                onclick="deleteData('{{ addslashes($list->id) }}' , 'categories')"
+                                                onclick="deleteData('{{ addslashes($list->id) }}' , 'taxes')"
                                                 class="btn btn-outline-danger px-5 radius-30">Delete</button>
                                         </td>
 

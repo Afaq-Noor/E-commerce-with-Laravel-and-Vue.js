@@ -187,9 +187,9 @@
 
                         <div class="new-arrival-item text-center mb-50">
                             <div class="thumb mb-25" style="width:100%; aspect-ratio:4/3; overflow:hidden;">
-                                <a :href="`/product/${product.slug}`">
+                               <router-link :to="'/product/'+product.id">
                                     <img :src="product.image ? `/${product.image}` : '/front_end/img/no_image.jpg'" :alt="product.name" style="width:100%;  height:100%;  display:block;">
-                                </a>
+                                </router-link>
 
                                 <div class="product-overlay-action">
                                     <ul>
@@ -199,9 +199,9 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a :href="`/product/${product.slug}`">
+                                            <router-link :to="'/product/'+product.slug">
                                                 <i class="far fa-eye"></i>
-                                            </a>
+                                            </router-link>
                                         </li>
                                         
                                         <li>
@@ -215,9 +215,9 @@
 
                             <div class="content">
                                 <h5>
-                                    <a :href="`/product/${product.slug}`">
+                                <router-link :to="'/product/'+product.slug">
                                         {{ product.name }}
-                                    </a>
+                                    </router-link>
                                 </h5>
 
                                 <span class="price">

@@ -26,8 +26,8 @@ class ProductListController extends Controller
             'category',
             'brand',
             'tax',
-            'productAttr.color',
-            'productAttr.size'
+            'productAttr.colors',
+            'productAttr.sizes'
         ])
             ->orderByDesc('id')
             ->get();
@@ -70,8 +70,8 @@ class ProductListController extends Controller
             'brand',
             'tax',
             'category',
-            'productAttr.color', // 👈 includes color info
-            'productAttr.size',
+            'productAttr.colors', // 👈 includes color info
+            'productAttr.sizes',
             'productAttr.attributeValue',
             'productAttr.images',
         ]);

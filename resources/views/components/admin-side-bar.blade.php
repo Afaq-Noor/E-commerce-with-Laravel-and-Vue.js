@@ -45,6 +45,14 @@
 						<div class="menu-title">Manage Color </div>
 					</a>
 				</li>
+				<li>
+					<a href="{{url('admin/manage-coupon')}}">
+						<div class="parent-icon"><i class='bx bx-cookie'></i>
+						</div>
+						<div class="menu-title">Manage Coupon </div>
+					</a>
+				</li>
+
 
 				<li>
 					<a href="javascript:;" class="has-arrow">

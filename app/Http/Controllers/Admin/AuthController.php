@@ -35,7 +35,11 @@ class AuthController extends Controller
     public function destroy(string $id, string $table)
     {
         try {
-            $allowedTables = ['users', 'roles', 'products', 'categories'];
+            $allowedTables = ['users', 'roles', 'products', 
+            'categories' , 'coupons' , 'attribute_values' , 
+            'taxes' ,
+            'categories' , 'category_attributes' , 'brands' ,
+            'home_banners' , 'sizes' , 'colors' , 'attributes'];
 
             if (!in_array($table, $allowedTables)) {
                 return $this->error('Invalid table name.', 400, []);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeBannerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DynamicAjaxAttributeController;
 use App\Http\Controllers\Admin\ProductListController;
@@ -26,7 +27,7 @@ Route::post('/save-profile', [ProfileController::class, 'store']);
 //home banner
 Route::get('/home-banner', [HomeBannerController::class, 'index']);
 Route::post('/update-home-banner', [HomeBannerController::class, 'store']);
-Route::delete('admin/delete-home-banner/{id?}/{table?}', [HomeBannerController::class, 'destroy']);
+// Route::delete('admin/delete-home-banner/{id?}/{table?}', [HomeBannerController::class, 'destroy']);
 
 // Size
 Route::get('/manage-size', [SizeController::class, 'index']);
@@ -36,6 +37,9 @@ Route::post('/update-size', [SizeController::class, 'store']);
 Route::get('/manage-color', [ColorController::class, 'index']);
 Route::post('/update-color', [ColorController::class, 'store']);
 Route::get('admin/delete-data/{id?}/{table?}', [AuthController::class, 'destroy']);
+//Coupon
+Route::get('/manage-coupon', [CouponController::class, 'index']);
+Route::post('/add-or-update-coupon', [CouponController::class, 'store']);
 
 
 //Attribue

@@ -39,7 +39,7 @@ class Product extends Model
     // product -> variants
     public function productAttr()
     {
-        return $this->hasMany(ProductAttr::class,  'product_id');
+        return $this->hasMany(ProductAttr::class,  'product_id')->with('colors', 'sizes');
     }
 
     // optional product-level images if you add them later

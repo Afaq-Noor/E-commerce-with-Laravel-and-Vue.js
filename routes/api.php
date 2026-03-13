@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -35,6 +36,16 @@ Route::post('/getUserData', [HomeController::class , 'getUserData']) ;
 Route::post('/getCartData', [HomeController::class , 'getCartData']) ;
 Route::post('/addToCart', [HomeController::class , 'addToCart']) ;
 Route::post('/removeCartData', [HomeController::class , 'removeCartData']) ;
+Route::post('/addCoupon', [HomeController::class , 'addCoupon']) ;
+Route::post('/getUserCoupon', [HomeController::class , 'getUserCoupon']) ;
+Route::post('/removeCoupon', [HomeController::class , 'removeCoupon']) ;
+Route::post('/getPinCodeDetails', [HomeController::class , 'getPinCodeDetails']) ;
+Route::post('/placeOrder', [HomeController::class , 'placeOrder']) ;
+Route::get('/getProductData/{slug?}', [HomeController::class , 'getProductData']) ;
 
 // After clicking main category in navbar then categories data
 Route::post('/category' , [CategoryPageController::class , 'getCategoryData']) ;
+
+// payment gateway
+Route::middleware('auht:sanctum')->post('/paymentGatewayAfterCheckout', 
+[PaymentController::class , 'checkout']) ;

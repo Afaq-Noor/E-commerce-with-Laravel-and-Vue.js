@@ -19,13 +19,12 @@
                     <div class="menu-wrap">
                         <nav class="menu-nav show">
                             <div class="logo">
-                                <router-link to="/front" class="main-logo"><img src="../assets/img/logo/fw_logo.png" alt="Logo"></router-link>
-                                <router-link to="/front" class="sticky-logo"><img src="../assets/img/logo/logo.png" alt="Logo"></router-link>
+                                <router-link to="/" class="main-logo"><img src="../assets/img/logo/fw_logo.png" alt="Logo"></router-link>
+                                <router-link to="/" class="sticky-logo"><img src="../assets/img/logo/logo.png" alt="Logo"></router-link>
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
 
-                                   
                                     <li v-for="cat in mainCategories" :key="cat.id" class="has--mega--menu"><a href="#">{{ cat.name }}</a>
                                         <ul class="mega-menu">
                                             <li class="mega-menu-wrap">
@@ -33,11 +32,11 @@
                                                     <li class="mega-title">
                                                         <router-link :to="'/category/' + cat.name ">{{ cat.name}}</router-link>
                                                     </li>
-                                                       <div v-if="subCategoriesByParent[cat.id]">
-                                                    <li v-for="subItem in subCategoriesByParent[cat.id]" :key="subItem.id">
-                                                        <router-link :to="'/category/' + subItem.slug">{{ subItem.name}}</router-link>
+                                                    <div v-if="subCategoriesByParent[cat.id]">
+                                                        <li v-for="subItem in subCategoriesByParent[cat.id]" :key="subItem.id">
+                                                            <router-link :to="'/category/' + subItem.slug">{{ subItem.name}}</router-link>
                                                         </li>
-                                                   </div>
+                                                    </div>
                                                 </ul>
 
                                                 <ul class="mega-menu-col sub-cat-post">
@@ -52,7 +51,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="menu-item-has-children"><a href="#">blog</a>
+                                    <li class="menu-item-has-children"><a href="javascrip:void(0)">blog</a>
                                         <ul class="submenu">
                                             <li><a href="blog.html">Our Blog</a></li>
                                             <li><a href="blog-details.html">Blog Details</a></li>
@@ -63,16 +62,15 @@
                             </div>
                             <div class="header-action d-none d-md-block">
                                 <ul>
-                                    <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="flaticon-search"></i></a></li>
-                                    <li class="header-shop-cart"><a href="#"><i class="flaticon-shopping-bag"></i><span>{{ cartCount }}</span></a>
+                                    <li class="header-search"><a href="javascrip:void(0)" data-toggle="modal" data-target="#search-modal"><i class="flaticon-search"></i></a></li>
+                                    <li class="header-shop-cart"><a href="javascrip:void(0)"><i class="flaticon-shopping-bag"></i><span>{{ cartCount }}</span></a>
                                         <ul class="minicart">
-                                            <li v-if="cartCount > 0" v-for="item in cartProduct" :key="item.id"
-                                             class="d-flex align-items-start">
+                                            <li v-if="cartCount > 0" v-for="item in cartProduct" :key="item.id" class="d-flex align-items-start">
                                                 <div class="cart-img">
-                                                    <a href="#"><img :src="item.products[0].image" alt=""></a>
+                                                    <a href="javascrip:void(0)"><img :src="item.products[0].image" alt=""></a>
                                                 </div>
                                                 <div class="cart-content">
-                                                    <h4><a href="#">  {{ item.products[0].name }}</a></h4>
+                                                    <h4><a href="javascrip:void(0)"> {{ item.products[0].name }}</a></h4>
                                                     <div class="cart-price">
                                                         <span class="new">Rs {{ item.products[0].product_attr[0].price }} </span>
                                                         <span><del>Rs {{ item.products[0].product_attr[0].mrp }}</del></span>
@@ -80,8 +78,8 @@
                                                 </div>
                                                 <div class="del-icon">
                                                     <a href="javascript:void(0)" @click="removeCartData(item.products[0].id,
-                                                    item.products[0].product_attr[0].id, 1 )">
-                                                    <i class="far fa-trash-alt"></i></a>
+                                                    item.product_attr_id, 1 )">
+                                                        <i class="far fa-trash-alt"></i></a>
                                                 </div>
                                             </li>
 
@@ -93,7 +91,7 @@
                                             </li>
                                             <li>
                                                 <div class="checkout-link">
-                                                    <a href="#">Shopping Cart</a>
+                                                    <router-link to="/ShoppingCart">Shopping Cart</router-link>
                                                     <a class="black-color" href="#">Checkout</a>
                                                 </div>
                                             </li>
@@ -261,7 +259,10 @@
 <!-- main-area -->
 <main>
 
-    <slot name="content" :addToCart="addToCart">
+    <slot name="content" :addToCart="addToCart" :cartCount="cartCount" 
+    :cartProduct="cartProduct" 
+    :cartTotal="cartTotal" :removeCartData="removeCartData" :addCoupon="addCoupon" 
+    :getCartData="getCartData" :removeCoupon="removeCoupon" :couponName="couponName">
 
     </slot>
 
@@ -339,37 +340,41 @@ export default {
             mainCategories: [],
             subCategories: [],
             subCategoriesByParent: [],
-            subCategoriesByParent: {} ,
-            loading: true , 
+            subCategoriesByParent: {},
+            loading: true,
 
-            headerCategories : [] ,
-            user_info : {
-                  'user_id' : '' ,
-                  'auth' : false 
-            } ,  
-            cartCount : 0 ,
-            cartProduct : [] ,
-            cartTotal : 0 ,
+            headerCategories: [],
+            user_info: {
+                'user_id': '',
+                'auth': false
+            },
+            cartCount: 0,
+            cartProduct: [],
+            cartTotal: 0,
+            oldCartTotal: 0 ,
+            couponName : '' 
         }
     },
     mounted() {
         // Load theme JS AFTER Vue renders
-        this.fetchCategories() ;
-        this.loadThemeScripts() ; 
+        this.fetchCategories();
+        this.loadThemeScripts();
 
-        this.getUser() ;
-        this.getCartData() ;
+        this.getUser();
+        this.getCartData();
+        this.getUserCoupon() ;
     },
-    watch:{
+    watch: {
         cartProduct(val) {
-            this.cartTotal = 0 ;
+            this.cartTotal = 0;
 
-            for(var item in val) {
-                this.cartTotal += val[item].qty * val[item].products[0].product_attr[0].price ;
+            for (var item in val) {
+                this.cartTotal += val[item].qty * val[item].products[0].product_attr[0].price;
             }
+            this.oldCartTotal = this.cartTotal ;
+            this.getUserCoupon() ;
         }
-    }
-     ,
+    },
     methods: {
         loadThemeScripts() {
             const scripts = [
@@ -398,138 +403,180 @@ export default {
                 s.async = false
                 document.body.appendChild(s)
             })
+        },
+         async removeCoupon() {
+            try {
+                this.couponName = '' ;
+                let response = await axios.post('/api/removeCoupon', {
+                    'token': this.user_info.user_id,
+                    'auth': this.user_info.auth,
+                });
+                if (response.status == 200) {
+                   
+                   console.log('User coupon is removed')
+                } else {
+                    console.log('Data not found');
+                }
+            } catch (error) {
+
+            }
         }
-        ,
-         
-         async removeCartData(product_id, product_attr_id , qty) 
-         {
-             try {
-                 let response = await axios.post('/api/removeCartData', 
-                 { 
-                      'token' : this.user_info.user_id , 
-                      'auth'  : this.user_info.auth ,
-                      'product_id'  : product_id ,
-                      'product_attr_id'  : product_attr_id ,
-                      'qty'  : qty ,
-                 }) ;
-                 if(response.status == 200)
-                 {
-                   this.getCartData() ;
-                 } else {
-                    console.log('Data not found') ;
-                 }
-             } catch (error) {
+         ,
+         async getUserCoupon() {
+            try {
+                let response = await axios.post('/api/getUserCoupon', {
+                    'token': this.user_info.user_id,
+                    'auth': this.user_info.auth,
+                    'cartTotal': this.oldCartTotal,
+                });
+                if (response.status == 200) {
+                   
+                    
+                    this.cartTotal = response.data.data.cartTotal ; 
+                
+                    this.couponName = response.data.data.couponName ;
+                } else {
+                    console.log('Data not found');
+                }
+            } catch (error) {
 
-             }
-         } ,
-         async addToCart(product_id, product_attr_id , qty) 
-         {
-             try {
-                 let response = await axios.post('/api/addToCart', 
-                 { 
-                      'token' : this.user_info.user_id , 
-                      'auth'  : this.user_info.auth ,
-                      'product_id'  : product_id ,
-                      'product_attr_id'  : product_attr_id ,
-                      'qty'  : qty ,
-                 }) ;
-                 if(response.status == 200)
-                 {
-                   this.getCartData() ;
-                 } else {
-                    console.log('Data not found') ;
-                 }
-             } catch (error) {
+            }
+        } ,
+         async addCoupon(couponName) {
+            try {
+                let response = await axios.post('/api/addCoupon', {
+                    'token': this.user_info.user_id,
+                    'auth': this.user_info.auth,
+                    'cartTotal': this.oldCartTotal,
+                    'couponName': couponName,
+                });
+                if (response.status == 200) {
+                   
+                    this.cartTotal = response.data.data.data ; 
+                } else {
+                    console.log('Data not found');
+                }
+            } catch (error) {
 
-             }
-         } ,
-         
-         async getCartData() 
-         {
-             try {
-                 let response = await axios.post('/api/getCartData', 
-                 { 
-                      'token' : this.user_info.user_id , 
-                      'auth'  : this.user_info.auth ,
-                 }) ;
-                 if(response.status == 200)
-                 {
-                     console.log(response.data.data.data)
-                      this.cartCount = response.data.data.data.length ;
-                      this.cartProduct = response.data.data.data ;
-                 } else {
-                    console.log('Data not found') ;
-                 }
-             } catch (error) {
+            }
+        }, 
+        async removeCartData(product_id, product_attr_id, qty) {
+            try {
+                let response = await axios.post('/api/removeCartData', {
+                    'token': this.user_info.user_id,
+                    'auth': this.user_info.auth,
+                    'product_id': product_id,
+                    'product_attr_id': product_attr_id,
+                    'qty': qty,
+                });
+                if (response.status == 200) {
+                    this.getCartData();
+                } else {
+                    console.log('Data not found');
+                }
+            } catch (error) {
 
-             }
-         }
-        ,
-         async getUser() 
-         {
-            if(localStorage.getItem('user_info')) 
-            {
+            }
+        },
+        async addToCart(product_id, product_attr_id, qty) {
+            if (product_id == '' || product_attr_id == '' || qty == '' ) {
+                alert('Select color or quantity');
+            } else if( qty < 1) {
+               alert('You can click the delete icon to remove product from Cart.') ;
+            }else {
+                try {
+                    let response = await axios.post('/api/addToCart', {
+                        'token': this.user_info.user_id,
+                        'auth': this.user_info.auth,
+                        'product_id': product_id,
+                        'product_attr_id': product_attr_id,
+                        'qty': qty,
+                    });
+                    if (response.status == 200) {
+                        this.getCartData();
+                    } else {
+                        console.log('Data not found');
+                    }
+                } catch (error) {
+
+                }
+            }
+
+        },
+
+        async getCartData() {
+            try {
+                let response = await axios.post('/api/getCartData', {
+                    'token': this.user_info.user_id,
+                    'auth': this.user_info.auth,
+                });
+                if (response.status == 200) {
+                    this.cartCount = response.data.data.data.length;
+                    this.cartProduct = response.data.data.data;
+                } else {
+                    console.log('Data not found');
+                }
+            } catch (error) {
+
+            }
+        },
+        async getUser() {
+            if (localStorage.getItem('user_info')) {
                 // user set into local storage 
-                var user = localStorage.getItem('user_info') ;
-                var testUser = JSON.parse(user) ;
-                this.user_info.user_id = testUser.user_id ;
-                this.getUserData() ;
+                var user = localStorage.getItem('user_info');
+                var testUser = JSON.parse(user);
+                this.user_info.user_id = testUser.user_id;
+                this.getUserData();
             } else {
                 // user not set to localStorage
-                this.getUserData() ;
+                this.getUserData();
             }
-         }
-         , 
-         async getUserData() 
-         {
-            try{
-                let response = await axios.post('/api/getUserData' , {
-                     'token' : this.user_info.user_id , 
-                }) ; 
+        },
+        async getUserData() {
+            try {
+                let response = await axios.post('/api/getUserData', {
+                    'token': this.user_info.user_id,
+                });
 
-                if(response.status == 200) {
-                    if(response.data.data.user_type == 1) 
-                    {
+                if (response.status == 200) {
+                    if (response.data.data.user_type == 1) {
                         // Auth user
-                        this.user_info.auth = true ;
-                        this.user_info.user_id = response.data.data.token ;
-                        localStorage.setItem('user_info' , JSON.stringify(this.user_info)) ;
-                    }else {
+                        this.user_info.auth = true;
+                        this.user_info.user_id = response.data.data.token;
+                        localStorage.setItem('user_info', JSON.stringify(this.user_info));
+                    } else {
                         // Not Auth User    
-                        this.user_info.auth = false ;
-                        this.user_info.user_id = response.data.data.token ;
-                        localStorage.setItem('user_info' , JSON.stringify(this.user_info)) ;
+                        this.user_info.auth = false;
+                        this.user_info.user_id = response.data.data.token;
+                        localStorage.setItem('user_info', JSON.stringify(this.user_info));
                     }
                 } else {
-                       console.log('Data Not Found') ; 
+                    console.log('Data Not Found');
                 }
-            } catch(error) {
-              console.log(error)
+            } catch (error) {
+                console.log(error)
             }
-         }
-         ,
-         async fetchCategories() {
-              const response = await axios.get('/api/categories') ;
-                    const categories = response.data.data;
+        },
+        async fetchCategories() {
+            const response = await axios.get('/api/categories');
+            const categories = response.data.data;
 
-                    this.categories = categories ;
+            this.categories = categories;
 
-                    this.mainCategories = categories.filter(cat =>
-                        cat.parent_category_id === cat.id);
+            this.mainCategories = categories.filter(cat =>
+                cat.parent_category_id === cat.id);
 
-                    this.subCategories = categories.filter(cat =>
-                        cat.parent_category_id !== cat.id)
+            this.subCategories = categories.filter(cat =>
+                cat.parent_category_id !== cat.id)
 
-                    this.subCategoriesByParent = this.subCategories.reduce((acc, cat) => {
-                        if (!acc[cat.parent_category_id]) {
-                            acc[cat.parent_category_id] = []
-                        }
-                        acc[cat.parent_category_id].push(cat)
-                        return acc
-                    }, {})
+            this.subCategoriesByParent = this.subCategories.reduce((acc, cat) => {
+                if (!acc[cat.parent_category_id]) {
+                    acc[cat.parent_category_id] = []
+                }
+                acc[cat.parent_category_id].push(cat)
+                return acc
+            }, {})
 
-                
-               
         }
 
     }

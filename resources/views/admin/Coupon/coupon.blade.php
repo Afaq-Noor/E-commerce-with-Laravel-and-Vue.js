@@ -7,13 +7,13 @@
         <div class="page-content">
             <!--breadcrumb-->
             <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                <div class="breadcrumb-title pe-3">User Profile</div>
+                <div class="breadcrumb-title pe-3">Coupon</div>
                 <div class="ps-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 p-0">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">User Profilep</li>
+                            <li class="breadcrumb-item active" aria-current="page">Update Coupon</li>
                         </ol>
                     </nav>
                 </div>
@@ -34,10 +34,10 @@
                     </div>
                 </div>
             </div>
-            <h6 class="mb-0 text-uppercase">Home Banner</h6>
             <div class="col">
-                <button type="button" class="btn btn-outline-info px-5 radius-30" onclick="saveData('','','','')"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal"> Add Home Banner</button>
+                <button type="button" class="btn btn-outline-info px-5 radius-30" onclick=""
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                    Coupon</button>
             </div>
             <hr />
             <div class="card">
@@ -47,34 +47,46 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Text</th>
-                                    <th>Link</th>
-                                    <th>Image</th>
-                                    <th>Action</th>
+                                    <th>Name </th>
+                                    <th>Type</th>
+                                    <th>Value</th>
+                                    <th>Min Value</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $list)
                                     <tr>
                                         <td>{{ $list->id }}</td>
-                                        <td>{{ $list->text }}</td>
-                                        <td>{{ $list->link }}</td>
-                                        <td>{{ $list->image }}</td>
+                                        <td>{{ $list->name }}</td>
+                                        @if($list->type == 1)
+                                        <td>{{ $list->type }} Value</td>
+                                        @else    
+                                        <td>{{ $list->type }} Percentage</td>
+                                        @endif
+                                        <td>{{ $list->value }}</td>
+                                        <td>{{ $list->minvalue }}</td>
                                         <td> <button type="button"
-                                                onclick="saveData('{{ addslashes($list->id) }}', '{{ addslashes($list->text) }}', '{{ addslashes($list->link) }}', '{{ addslashes($list->image) }}')"
+                                                onclick="saveData('{{ addslashes($list->id) }}', 
+                                                '{{ addslashes($list->name) }}' , '{{ addslashes($list->type) }}' ,  
+                                                '{{ addslashes($list->value) }}' ,  '{{ addslashes($list->minvalue) }}')"
                                                 class="btn btn-outline-info px-5 radius-30" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal"> Update</button>
-                                                <button onclick="deleteData( '{{ addslashes($list->id) }}' , 'home_banners')" class="btn btn-outline-danger px-5 radius-30">Delete</button></td>
+                                            <button onclick="deleteData('{{ addslashes($list->id) }}' , 'coupons')"
+                                                class="btn btn-outline-danger px-5 radius-30">Delete</button>
+                                        </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Text</th>
-                                    <th>Link</th>
-                                    <th>Image</th>
-                                    <th>Action</th>
+                                    <th>Name </th>
+                                    <th>Type</th>
+                                    <th>Value</th>
+                                    <th>Min Value</th>
+                                    <th>Actions</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -84,7 +96,12 @@
 
         </div>
     </div>
-    <!--end breadcrumb-->
+
+
+
+
+
+
 
 
 
@@ -94,10 +111,10 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Home Banner</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Coupon</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="formSubmit" action="{{ url('admin/update-home-banner') }}" method="POST"
+                <form id="formSubmit" action="{{ url('/admin/add-or-update-coupon') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
@@ -107,32 +124,43 @@
                                     <div class="card-title d-flex align-items-center">
                                         <div><i class="bx bxs-user me-1 font-22 text-info"></i>
                                         </div>
-                                        <h5 class="mb-0 text-info">User Registration</h5>
+                                        <h5 class="mb-0 text-info">Coupon</h5>
                                     </div>
                                     <hr>
 
                                     <div class="row mb-3">
-                                        <label for="enter_text" class="col-sm-3 col-form-label">Enter Text</label>
+                                        <label for="enter_text" class="col-sm-3 col-form-label">Coupon Text</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="enter_text" id="enter_text"
-                                                placeholder="Enter Your Name">
+                                            <input type="text" class="form-control" name="couponText" id="couponText"
+                                                placeholder="Enter Coupon">
                                         </div>
                                     </div>
+
                                     <div class="row mb-3">
-                                        <label for="enter_link" class="col-sm-3 col-form-label">Enter Link</label>
+                                        <label for="enter_value" class="col-sm-3 col-form-label">Enter Coupon Value</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="enter_link" id="enter_link"
-                                                placeholder="Phone No">
+                                            <select class="form-select" name="couponType" id="couponType">
+                                                <option value="" selected disabled>Open this select menu</option>
+                                                <option value="1">Value</option>
+                                                <option value="2">Percentage</option>
+                                            </select>
+
                                         </div>
                                     </div>
+
                                     <div class="row mb-3">
-                                        <label for="enter_image" class="col-sm-3 col-form-label">Image</label>
+                                        <label for="enter_minValue" class="col-sm-3 col-form-label">Value</label>
                                         <div class="col-sm-9">
-                                            <input type="file" class="form-control" value="" name="enter_image" id="photo"
-                                                placeholder="Email Address">
+                                            <input type="text" class="form-control" name="value" id="value"
+                                                placeholder="Enter Value">
                                         </div>
-                                        <div id="image_key">
-                                            <img src="" height="200px" width="200px" alt="">
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">MinValue</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="minValue" id="minValue"
+                                                placeholder="Enter MinValue">
                                         </div>
                                     </div>
 
@@ -155,23 +183,13 @@
     </div>
 
     <script>
-        function saveData(id, text, link, image) {
+        function saveData(id = '', couponText = '', couponType = '', value = '', minValue = '') {
+
             $('#enter_id').val(id);
-            $('#enter_text').val(text);
-            $('#enter_link').val(link);
-            let key_image;
-            let baseUrl = "{{ URL::asset('') }}"; // this gives you e.g. https://example.com/image/
-
-            if (image == '') {
-                key_image = "{{ URL::asset('image') }}/" + 'upload.png';
-            } else {
-                key_image = baseUrl + image;
-            }
-            // Now use JS variable correctly
-             const htmll = `<img src="${key_image}" id="imgPreview" width="200px" height="150px" alt="upload">`;
-            $('#image_key').html(htmll);
-
-      
-    }
+            $('#couponText').val(couponText);   
+            $('#couponType').val(couponType);   
+            $('#value').val(value);   
+            $('#minValue').val(minValue);   
+          }
     </script>
 @endsection
