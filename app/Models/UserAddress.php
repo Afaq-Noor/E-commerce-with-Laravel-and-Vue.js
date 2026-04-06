@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class UserAddress extends Model
 {
        protected $guarded = [];
+
+       public function userAddress()
+       {
+              return $this->belongsTo(User::class, 'user_id');
+       }
 }

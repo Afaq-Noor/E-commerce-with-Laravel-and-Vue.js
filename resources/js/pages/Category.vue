@@ -1,6 +1,6 @@
 <template>
 <Layout>
-    <template v-slot:content>
+    <template v-slot:content="slotProps">
         <!-- main-area -->
         <main>
 
@@ -58,17 +58,22 @@
                                 <div v-for="product in products" :key="product.id" class="col-xl-4 col-sm-6">
                                     <div class="new-arrival-item text-center mb-50">
                                         <div class="thumb mb-25">
-                                            <a href="shop-details.html"><img :src="product.image ? `/${product.image}` : '/front_end/img/no_image.jpg'" alt=""></a>
+                                            <a href="/ShoppingCart"><img :src="product.image ? `/${product.image}` : '/front_end/img/no_image.jpg'" alt=""></a>
                                             <div class="product-overlay-action">
                                                 <ul>
                                                     <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
                                                     <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
+                                                    <li>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-shopping-cart" @click="slotProps.addToCart(product.id,product.product_attr[0].id,1)"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="content">
                                             <h5><a href="shop-details.html">{{ product.name }}</a></h5>
-                                            <span class="price">$37.00</span>
+                                            <span class="price">{{ product.product_attr[0]?.price }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -112,14 +117,12 @@
                                         <div id="slider-range"></div>
                                         <div class="price_slider_amount">
                                             <span>Price :</span>
-                                            <input type="text" @keypress="isNumber($event)" ref="lowPrice" id="lowPrice"  
-                                             placeholder="Add Your Price" />
-                                            <input type="text" @keypress="isNumber($event)"  ref="highPrice" id="highPrice" 
-                                            placeholder="Add Your Price" />
+                                            <input type="text" @keypress="isNumber($event)" ref="lowPrice" id="lowPrice" placeholder="Add Your Price" />
+                                            <input type="text" @keypress="isNumber($event)" ref="highPrice" id="highPrice" placeholder="Add Your Price" />
                                         </div>
                                     </div>
                                 </div>
-                                <div v-for="item in attributes" :key="item.id"  class="widget">
+                                <div v-for="item in attributes" :key="item.id" class="widget">
                                     <h4 class="widget-title">{{ item.attribute.name }}</h4>
                                     <div class="sidebar-brand-list">
                                         <ul>
@@ -129,7 +132,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                
+
                                 <div class="widget">
                                     <h4 class="widget-title">Product Brand</h4>
                                     <div class="sidebar-brand-list">
@@ -145,8 +148,7 @@
                                         <h4 class="widget-title">Product Size</h4>
                                         <div class="shop-size-list">
                                             <ul>
-                                                <li v-for="item in sizes" :key="item.id" 
-                                                v-on:click="addDataAttr('size',item.id)">
+                                                <li v-for="item in sizes" :key="item.id" v-on:click="addDataAttr('size',item.id)">
                                                     <a :class="this.size.includes(item.id) ? sizeColor : '' " href="javascript:void(0)">{{ item.text }}</a></li>
                                             </ul>
                                         </div>
@@ -155,18 +157,14 @@
                                         <h4 class="widget-title">Color</h4>
                                         <div class="shop-color-list">
                                             <ul>
-                                                <li v-for="item in colors" :key="item.id" 
-                                                v-on:click="addDataAttr('color',item.id)" 
-                                                :class="this.color.includes(item.id) ? colorColor : '' " 
-                                                :style="{backgroundColor: item.value}">
+                                                <li v-for="item in colors" :key="item.id" v-on:click="addDataAttr('color',item.id)" :class="this.color.includes(item.id) ? colorColor : '' " :style="{backgroundColor: item.value}">
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="cart-coupon">
                                         <form action="#">
-                                            <button type="button" v-on:click="getProducts" 
-                                            class="btn">Filter</button>
+                                            <button type="button" v-on:click="getProducts" class="btn">Filter</button>
                                         </form>
                                     </div>
                                 </div>
@@ -280,19 +278,17 @@ export default {
         this.getProducts();
     },
     methods: {
-         
+
         showDataAttribute() {
-            console.log(this.$refs.lowPrice.value) ;
-            console.log(this.$refs.highPrice.value) ;
-        }
-        ,
+            console.log(this.$refs.lowPrice.value);
+            console.log(this.$refs.highPrice.value);
+        },
         isNumber(evt) {
-            const charcode = evt.which ? evt.which : evt.keyCode ;
-            if(charcode > 31 && (charcode < 48 || charcode > 57 ) && charcode !== 46)
-            {
-                evt.preventDefault() ;
+            const charcode = evt.which ? evt.which : evt.keyCode;
+            if (charcode > 31 && (charcode < 48 || charcode > 57) && charcode !== 46) {
+                evt.preventDefault();
             }
-        } ,
+        },
         addDataAttr(type, value) {
             if (type == 'brand') {
                 console.log(value);
@@ -318,9 +314,8 @@ export default {
                 } else {
                     // false value not exist in array
                     this.color.push(value);
-                } 
                 }
-                else if (type == 'attribute') {
+            } else if (type == 'attribute') {
                 if (this.checkArray(type, value)) {
                     // true value exist in array
                     this.attribute.splice(this.attribute.indexOf(value), 1);
@@ -356,20 +351,21 @@ export default {
                     });
                 } else {
                     const response = await axios.post('/api/category/', {
-                          "slug" : this.slug ,
-                          "attribute" : this.attribute ,
-                          "lowPrice" : this.$refs.lowPrice.value ,
-                          "highPrice" : this.$refs.highPrice.value ,
-                          "brand" : this.brand ,
-                          "size" : this.size ,
-                          "color" : this.color ,
+                        "slug": this.slug,
+                        "attribute": this.attribute,
+                        "lowPrice": this.$refs.lowPrice.value,
+                        "highPrice": this.$refs.highPrice.value,
+                        "brand": this.brand,
+                        "size": this.size,
+                        "color": this.color,
                     });
 
                     if (response.data.data.products) {
-                        console.log(response.data.data.cat_attributes) ;
+                        console.log(response.data.data.cat_attributes);
                         this.category = response.data.data.category;
                         this.categories = response.data.data.categories;
                         this.products = response.data.data.products.data;
+                        console.log(this.products)
                         this.brands = response.data.data.brands;
                         this.sizes = response.data.data.sizes;
                         this.colors = response.data.data.colors;
@@ -396,13 +392,14 @@ export default {
 }
 
 .sizeColor {
-    background-color: #ff5400 ;
-    color: #ffff ;
+    background-color: #ff5400;
+    color: #ffff;
 }
+
 .colorColor::before {
-    content: '\2713' ;
+    content: '\2713';
     display: inline-block;
-    color: #f00 ;
-    padding: 0 6px 0 0 ;
+    color: #f00;
+    padding: 0 6px 0 0;
 }
 </style>

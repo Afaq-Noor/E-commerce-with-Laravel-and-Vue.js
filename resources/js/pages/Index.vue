@@ -14,7 +14,7 @@
                                         <h3 class="sub-title" data-animation-in="fadeInUp" data-delay-in=".2" data-duration-in="1.5">best offer !</h3>
                                         <h2 class="title" data-animation-in="fadeInUp" data-delay-in=".4" data-duration-in="1.5">Gym sports shoes</h2>
                                         <p data-animation-in="fadeInUp" data-delay-in=".6" data-duration-in="1.5">Get up to 50% off Today Only</p>
-                                        <a href="shop-sidebar.html" class="btn" data-animation-in="fadeInUp" data-delay-in=".8" data-duration-in="1.5">Shop now</a>
+                                        <a href="#Trending_Products" class="btn" data-animation-in="fadeInUp" data-delay-in=".8" data-duration-in="1.5">Shop now</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -43,7 +43,7 @@
                             <div class="thumb mb-30">
                                 <a :href="`/shop/${catPr.slug}`">
                                     <div style="width:100%; aspect-ratio:4/3; overflow:hidden;">
-                                        <a :href="`/${catPr.slug}`">
+                                        <a :href="`/category/${catPr.slug}`">
                                             <img :src="catPr.image ? `/${catPr.image}` : '/front_end/img/no_image.jpg'" :alt="catPr.name" style="
                                            width:100%;  height:80%; object-fit:cover; display:block;" />
                                         </a>
@@ -80,7 +80,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-4 col-lg-6">
                         <div class="section-title title-style-two text-center mb-50">
-                            <h3 class="title">Trending Products</h3>
+                            <h3 class="title" id="Trending_Products">Trending Products</h3>
                         </div>
                     </div>
                 </div>

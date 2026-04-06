@@ -166,7 +166,7 @@ class HomeController extends Controller
         ]);
 
         // Increment quantity instead of overwriting
-        $cart->qty += $request->qty;
+        $cart->qty = $request->qty;
         $cart->user_type = $tempUser->user_type;
         $cart->save();
         return $this->success(['data' => ''], 'Add To Cart Success');
@@ -356,14 +356,14 @@ class HomeController extends Controller
             $user = $this->createUser($request->all());
             //save address
             $address_id = $this->saveAddress($request->all(), $user['id']);
-            
-            
+
+
             //save order
             $order = $this->saveOrder($request->all(), $user['id'], $address_id);
-           
+
             $newData['order_id'] = $order['id'];
             $newData['token'] = $user['token'];
-            $newData['paymentMethod'] = $request->paymentMethod ;
+            $newData['paymentMethod'] = $request->paymentMethod;
             if ($order['orderExist']) {
                 $newData['order_id'] = $order['id'];
                 $newData['token'] = $user['token'];
@@ -376,16 +376,17 @@ class HomeController extends Controller
 
                 $order->order_status = 'cod';
                 $order->save();
-                $checkTempUserCart->delete() ;
-           } else if ($request->paymentMethod == 'online') {
+                Cart::where('user_id', $tempUser->user_id)->delete();
+            } else if ($request->paymentMethod == 'online') {
 
                 $gateway = GatewayFactory::make('online');
 
                 $redirectUrl = $gateway->pay($order);
 
                 $newData['redirect_url'] = $redirectUrl;
+                Cart::where('user_id', $tempUser->user_id)->delete();
             }
-            
+
             // $newData['payment_type'] = $payment_type;
             // $newData['redirect_url'] = route('payment.page', $order->id);
             return $this->success(['data' => $newData], 'Order is successfully Placed!');
@@ -536,5 +537,45 @@ class HomeController extends Controller
             $totalPrice += $price;
         }
         return $totalPrice;
+    }
+
+
+    public function myOrders(Request $request)
+    {
+        $user = $request->user();
+
+        $orders = UserOrder::where('user_id', $user->id)
+            ->orderBy('id', 'desc')
+            ->with(['orderDetails.productAttr.product', 'address'])
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'orders' => $orders
+        ]);
+    }
+
+    public function orderDetails(Request $request, $id)
+    {
+
+        $user = $request->user();
+
+        $order = UserOrder::where('user_id', $user->id)
+            ->where('id', $id)
+            ->with('orderDetails.productAttr.product')
+            ->first();
+
+        if (!$order) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'order' => $order
+        ]);
     }
 }

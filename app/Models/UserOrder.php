@@ -12,4 +12,14 @@ class UserOrder extends Model
     public function payments() {
         return $this->hasMany(Payment::class) ;
     }
+
+    public function orderDetails()
+{
+    return $this->hasMany(UserOrderDetail::class,'order_id');
+}
+
+   public function address()
+{
+    return $this->belongsTo(UserAddress::class,'address_id');
+}
 }

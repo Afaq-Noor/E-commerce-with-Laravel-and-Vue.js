@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ApiMainController;
 use App\Http\Controllers\FrontendUser\CategoryPageController;
 use App\Http\Controllers\FrontendUser\HomeController;
+use Symfony\Component\Routing\Router;
 
 // Default test route (optional)
 Route::get('/test', function () {
@@ -42,7 +43,13 @@ Route::post('/removeCoupon', [HomeController::class , 'removeCoupon']) ;
 Route::post('/getPinCodeDetails', [HomeController::class , 'getPinCodeDetails']) ;
 Route::post('/placeOrder', [HomeController::class , 'placeOrder']) ;
 Route::get('/getProductData/{slug?}', [HomeController::class , 'getProductData']) ;
+Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('/my-orders', [HomeController::class,'myOrders']);
+
+    Route::get('/order-details/{id}', [HomeController::class,'orderDetails']);
+
+});
 // After clicking main category in navbar then categories data
 Route::post('/category' , [CategoryPageController::class , 'getCategoryData']) ;
 

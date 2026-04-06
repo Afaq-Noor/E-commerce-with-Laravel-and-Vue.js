@@ -6,6 +6,7 @@ import Category from '../pages/Category.vue'
 import Product from '../pages/Product.vue'
 import ShoppingCart from '../pages/ShoppingCart.vue'
 import Checkout from '../pages/Checkout.vue'
+import MyOrder from '../pages/MyOrder.vue'
 const routes = [
   {
     path: '/',
@@ -30,6 +31,11 @@ const routes = [
     name : 'Checkout' ,
     path: '/Checkout' ,
     component: Checkout
+  } , 
+  {
+    name : 'MyOrder' ,
+    path: '/MyOrder' ,
+    component: MyOrder
   }
   
 ]

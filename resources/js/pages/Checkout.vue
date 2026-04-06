@@ -5,7 +5,7 @@
         <main>
 
             <!-- breadcrumb-area -->
-            <section class="breadcrumb-area breadcrumb-bg" data-background="img/bg/breadcrumb_bg03.jpg">
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/front_end/img/bg/breadcrumb_bg03.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -179,6 +179,7 @@
 <script>
 import Layout from './Layout.vue'
 import axios from 'axios'
+// In a Vue component method or script setup
 import {
     useRoute
 } from 'vue-router';
@@ -245,12 +246,13 @@ export default {
                         });
                         this.loading = false;
                         if (response.status == 200) {
+                            localStorage.setItem('auth_token', JSON.stringify(response.data.data.data.token));
                             if (response.data.data.data.redirect_url) {
                                 const redirect = response.data.data.data.redirect_url
-                                window.location.href = redirect
+                               window.location.href = redirect;
                             }
-                            if(this.paymentMethod == 'cod'){
-                            location.reload() ;
+                            if (this.paymentMethod == 'cod') {
+                                this.$router.push('/MyOrder');
                             }
                             // this.city = response.data.data.data.City;
                             // this.state = response.data.data.data.State;

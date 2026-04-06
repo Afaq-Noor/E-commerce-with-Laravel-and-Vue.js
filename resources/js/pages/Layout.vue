@@ -51,13 +51,11 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="menu-item-has-children"><a href="javascrip:void(0)">blog</a>
+                                    <li class="menu-item-has-children"><a href="javascrip:void(0)">Order</a>
                                         <ul class="submenu">
-                                            <li><a href="blog.html">Our Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><router-link to="/MyOrder">My Order</router-link></li>
                                         </ul>
                                     </li>
-                                    <li><a href="contact.html">Contact Us</a></li>
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">
@@ -92,7 +90,7 @@
                                             <li>
                                                 <div class="checkout-link">
                                                     <router-link to="/ShoppingCart">Shopping Cart</router-link>
-                                                    <a class="black-color" href="#">Checkout</a>
+                                                    <router-link to="/Checkout" class="black-color">Checkout</router-link>
                                                 </div>
                                             </li>
                                         </ul>
@@ -133,13 +131,11 @@
                                         </ul>
                                     </li>
                                     <li><a href="about-us.html">About Us</a></li>
-                                    <li class="menu-item-has-children"><a href="#">blog</a>
+                                    <li class="menu-item-has-children"><a href="javascript:void(0)">Order</a>
                                         <ul class="submenu">
-                                            <li><a href="blog.html">Our Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><router-link to="/MyOrder">My Orders</router-link></li>
                                         </ul>
                                     </li>
-                                    <li><a href="contact.html">Contact Us</a></li>
                                 </ul>
                             </div>
                             <div class="social-links">

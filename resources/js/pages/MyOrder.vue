@@ -4,16 +4,16 @@
         <!-- main-area -->
         <main>
             <!-- breadcrumb-area -->
-            <section class="breadcrumb-area breadcrumb-bg" data-background="img/bg/breadcrumb_bg03.jpg">
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/front_end/img/bg/breadcrumb_bg03.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="breadcrumb-content">
-                                <h2>Cart Page</h2>
+                                <h2>My Order Page</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Order</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -33,7 +33,7 @@
                                     <table class="table mb-0">
                                         <thead>
                                             <tr>
-                                                <th class="product-thumbnail"></th>
+                                                <th class="product-thumbnail">Picture</th>
                                                 <th class="product-name">Product</th>
                                                 <th class="product-price">Price</th>
                                                 <th class="product-quantity">QUANTITY</th>
@@ -42,74 +42,32 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="item in slotProps.cartProduct" :key="item.id">
-                                                <td class="product-thumbnail"><a href="shop-details.html"><img :src="'/'+item?.products[0]?.image" alt=""></a></td>
+                                            <tr v-for="item in userOrdersProducts" :key="item.id">
+                                               <td class="product-thumbnail"><a href="shop-details.html"><img :src="'/'+item?.image" alt=""></a></td>
                                                 <td class="product-name">
-                                                    <h4><router-link :to="'/product/'+ item?.products[0]?.id">{{ item.products[0]?.name }}</router-link></h4>
+                                                    <h4>
+                                                        <router-link :to="'/product/'">{{ item.product_name }}</router-link>
+                                                    </h4>
                                                 </td>
-                                                <td class="product-price">{{ item.products[0]?.product_attr[0]?.price }}</td>
-                                                <td class="product-quantity">
-                                                    <div class="cart-plus-minus">
-                                                        <form action="#" class="num-block">
-                                                            <input type="text" class="in-num" :value="item?.qty" readonly="">
-                                                            <div class="qtybutton-box">
-                                                                <span class="plus"   
-                                                                v-on:click="slotProps.addToCart( item?.products[0]?.id, 
-                                                                item?.products[0]?.product_attr[0]?.id, item?.qty+1)">
-                                                                <img src="../assets/img/icon/plus.png" alt=""
-                                                                  style="display: block; margin-left: auto; margin-right: auto; width: 50%;"></span>
-                                                                <span class="minus dis"  v-on:click="slotProps.addToCart( item?.products[0]?.id, 
-                                                                item?.products[0]?.product_attr[0]?.id, item?.qty-1)">
-                                                                <img src="../assets/img//icon/minus.png" 
-                                                                 style="display: block; margin-left: auto; margin-right: auto; width: 50%;" alt=""></span>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td class="product-subtotal"><span>{{ item.products[0]?.product_attr[0]?.price * item?.qty }}</span></td>
-                                                <td class="product-delete"><a href="javascript:void(0)"  @click="slotProps.removeCartData(item.products[0].id,
-                                                    item.products[0]?.product_attr[0]?.id, item?.qty )"><i class="flaticon-trash"></i></a></td>
+                                                <td class="product-price">{{ item.price }}</td>
+                                                <td class="product-price">{{ item.qty }}</td>
+                                                <td class="product-price">{{ item.price * item.qty }}</td>
+                                               
+                                               
+                                                
                                             </tr>
-                                          
+
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="shop-cart-bottom mt-20">
-                                    <div class="cart-coupon">
-                                        <form>
-                                            <input type="text" placeholder="Enter Coupon Code..." 
-                                            ref="couponName" :value="slotProps.couponName">
-                                            <button type="button" @click="slotProps.addCoupon(this.$refs.couponName.value)" class="btn">Apply Coupon</button>
-                                        </form>
-                                    </div>
-                                    <div class="continue-shopping">
-                                        <a href="javascript:void(0)" @click="slotProps.getCartData(),slotProps.removeCoupon(),this.$refs.couponName.value" class="btn">Remove Coupon</a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="cart-total pt-95">
-                                <h3 class="title">CART TOTALS</h3>
+                                <h3 class="title">Orders Total</h3>
                                 <div class="shop-cart-widget">
                                     <form action="#">
                                         <ul>
-                                            <li class="sub-total"><span>SUBTOTAL</span> {{ slotProps.cartTotal }}</li>
-                                            <li>
-                                                <span>SHIPPING</span>
-                                                <div class="shop-check-wrap">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                        <label class="custom-control-label" for="customCheck1">FLAT RATE: $15</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2">FREE SHIPPING</label>
-                                                    </div>
-                                                    <a href="#" class="calculate">Calculate shipping</a>
-                                                </div>
-                                            </li>
-                                            <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">{{ slotProps.cartTotal }}</span></li>
-                                        </ul>
-                                        <router-link to="/Checkout" class="btn">PROCEED TO CHECKOUT</router-link>
+                                            <li class="title"><span>Rs: {{ ordersTotalPrice }}</span> </li>
+                                         </ul>   
                                     </form>
                                 </div>
                             </div>
@@ -132,7 +90,7 @@ import {
     useRoute
 } from 'vue-router';
 export default {
-    name: 'Checkout',
+    name: 'MyOrder',
     // props: ['cartTotal'],
     components: {
         Layout
@@ -145,14 +103,68 @@ export default {
                 'user_id': '',
                 'auth': false
             },
-            
+            userOrders: [],
+            userOrdersDetails: [],
+            userOrdersProducts: [],
+            ordersTotalPrice: 0 ,
         }
     },
     mounted() {
         this.getUser();
+        this.getMyOrders();
     },
     methods: {
+        async getMyOrders() {
+            try {
+                const rawToken = localStorage.getItem('auth_token');
 
+                // Use JSON.parse to remove the extra quotes added by JSON.stringify
+                const token = rawToken ? JSON.parse(rawToken) : null;
+                let response = await axios.get('/api/my-orders', {
+
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+
+                });
+                if (response.status == 200) {
+                    console.log(response.data.orders);
+                    this.userOrders = response.data.orders;
+                    this.userOrdersDetails = [];
+                    this.userOrdersProducts = [];
+
+                    this.userOrders.forEach(order => {
+                        order.order_details.forEach(detail => {
+                            this.userOrdersDetails.push({
+                                id: detail.id ,
+                                qty: detail.qty,
+                                total_value: detail.total_value , 
+                                order_id: detail.order_id
+                            }) ;
+                            this.ordersTotalPrice += detail.product_attr.price * detail.qty;
+                            if(detail.product_attr) {
+                                this.userOrdersProducts.push({
+                                    id: detail.product_attr.id ,
+                                    price: detail.product_attr.price ,
+                                    product_name: detail.product_attr.product.name ,
+                                    image: detail.product_attr.product.image ,
+                                    qty: detail.qty ,
+                                }) ;
+                            }
+                        }) ;
+                    });
+
+                    console.log(this.userOrdersDetails);
+                    console.log(this.userOrdersProducts);
+
+                } else {
+
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        },
         async getUser() {
             if (localStorage.getItem('user_info')) {
                 var user = localStorage.getItem('user_info');
@@ -195,4 +207,3 @@ export default {
     }
 }
 </script>
-
